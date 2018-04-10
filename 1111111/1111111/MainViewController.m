@@ -10,13 +10,16 @@
 #import "MyTableCell.h"
 //#import "HXRefresh.h"
 #import "ITPullToRefreshScrollView.h"
-
+#import "ProgressView.h"
+#import "NSView+Extension.h"
 #define kMessageTableviewWidth 730
 @interface MainViewController ()<NSTableViewDelegate, NSTableViewDataSource,ITPullToRefreshScrollViewDelegate>
 @property (nonatomic, strong) NSTableView *tableview;
 @property (nonatomic, strong) ITPullToRefreshScrollView *tableviewScrollView;
 @property (nonatomic, strong) NSMutableArray *listArray;
 @property (nonatomic, strong) NSProgressIndicator *indicator;
+
+@property (nonatomic, strong) ProgressView *progressView;
 @end
 // 写一个加载控件
 @implementation MainViewController
@@ -37,15 +40,23 @@
     self.tableviewScrollView.refreshableEdges = ITPullToRefreshEdgeTop | ITPullToRefreshEdgeBottom;
     [self.tableview reloadData];
     
-    self.indicator = [[NSProgressIndicator alloc]initWithFrame:CGRectMake((kMessageTableviewWidth -40) /2, 10, 40, 40)];
-    self.indicator.style = NSProgressIndicatorSpinningStyle;
-    self.indicator.wantsLayer = YES;
-    self.indicator.layer.backgroundColor = [NSColor clearColor].CGColor;
-    self.indicator.controlSize = NSControlSizeRegular;
-    [self.indicator sizeToFit];
-    self.indicator = self.indicator;
-    self.indicator.hidden = YES;
-    [self.tableviewScrollView addSubview:self.indicator];
+    
+    self.progressView = [NSView loadWithNibNamed:@"ProgressView" owner:self class:[ProgressView class]];
+    self.progressView.frame = CGRectMake((kMessageTableviewWidth -40) /2, 10, 40, 40);
+    self.progressView.hidden = YES;
+    [self.tableviewScrollView addSubview:self.progressView];
+    
+    /*
+     self.indicator = [[NSProgressIndicator alloc]initWithFrame:CGRectMake((kMessageTableviewWidth -40) /2, 10, 40, 40)];
+     self.indicator.style = NSProgressIndicatorSpinningStyle;
+     self.indicator.wantsLayer = YES;
+     self.indicator.layer.backgroundColor = [NSColor clearColor].CGColor;
+     self.indicator.controlSize = NSControlSizeRegular;
+     [self.indicator sizeToFit];
+     self.indicator = self.indicator;
+     self.indicator.hidden = YES;
+     [self.tableviewScrollView addSubview:self.indicator];
+     */
 }
 
 
@@ -71,7 +82,7 @@
 
 
 - (NSInteger)numberOfRowsInTableView:(NSTableView *)tableView {
-        return self.listArray.count;
+    return self.listArray.count;
 }
 
 - (CGFloat)tableView:(NSTableView *)tableView heightOfRow:(NSInteger)row
@@ -80,10 +91,11 @@
 }
 
 -(NSView *)tableView:(NSTableView *)tableView viewForTableColumn:(NSTableColumn *)tableColumn row:(NSInteger)row{
-    MyTableCell *cellView = [tableView makeViewWithIdentifier:@"kCellIdentifier" owner:self];
+    static NSString *Identifier = @"kCellIdentifier";
+    MyTableCell *cellView = [tableView makeViewWithIdentifier:Identifier owner:self];
     if (cellView == nil) {
         cellView = [[MyTableCell alloc] init];
-        [cellView setIdentifier: @"kCellIdentifier"];
+        [cellView setIdentifier: Identifier];
     }
     return cellView;
 }
@@ -145,35 +157,29 @@
 
 -(void)scrollViewDidContentOffsetChange:(ITPullToRefreshScrollView *)scrollViews contentOffSet:(NSPoint)newOffset{
     NSLog(@"----= %f", newOffset.y);
-//    if (NSEqualPoints(self.tableviewScrollView.bounds.origin, self.tableviewScrollView.documentVisibleRect.origin) == NO) {
-//        [self reflectScrolledClipView:self.contentView];
-//        NSLog(@"开始加载");
-//    }
+    //    if (NSEqualPoints(self.tableviewScrollView.bounds.origin, self.tableviewScrollView.documentVisibleRect.origin) == NO) {
+    //        [self reflectScrolledClipView:self.contentView];
+    //        NSLog(@"开始加载");
+    //    }
     dispatch_async(dispatch_get_main_queue(), ^{
-        self.indicator.hidden = NO;
-        [self.indicator startAnimation:nil];
+        self.progressView.hidden = NO;
+        [self.progressView.progressIndicator startAnimation:nil];
     });
     
     if (newOffset.y > 0) {
         [self.listArray insertObject:@"2" atIndex:0];
         NSLog(@"插入头部");
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.indicator.hidden = YES;
-                [self.indicator stopAnimation:nil];
-            });
-        });
         
     } else {
         NSLog(@"插入尾部");
         [self.listArray addObject:@"2"];
-        dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
-            dispatch_async(dispatch_get_main_queue(), ^{
-                self.indicator.hidden = YES;
-                [self.indicator stopAnimation:nil];
-            });
-        });
     }
+    dispatch_after(dispatch_time(DISPATCH_TIME_NOW, (int64_t)(2 * NSEC_PER_SEC)), dispatch_get_main_queue(), ^{
+        dispatch_async(dispatch_get_main_queue(), ^{
+            self.progressView.hidden = YES;
+            [self.progressView.progressIndicator stopAnimation:nil];
+        });
+    });
     dispatch_async(dispatch_get_main_queue(), ^{
         [self.tableview reloadData];
     });

@@ -17,6 +17,9 @@
 		1804375120738EA700FA0435 /* ITProgressIndicator.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804375020738EA700FA0435 /* ITProgressIndicator.m */; };
 		1804375620738EB200FA0435 /* NSBKeyframeAnimation.m in Sources */ = {isa = PBXBuildFile; fileRef = 1804375320738EB200FA0435 /* NSBKeyframeAnimation.m */; };
 		1804375720738EB200FA0435 /* NSBKeyframeAnimationFunctions.c in Sources */ = {isa = PBXBuildFile; fileRef = 1804375420738EB200FA0435 /* NSBKeyframeAnimationFunctions.c */; };
+		18535931207C98F600768CA1 /* NSView+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 18535930207C98F600768CA1 /* NSView+Extension.m */; };
+		18535935207C991000768CA1 /* ProgressView.m in Sources */ = {isa = PBXBuildFile; fileRef = 18535933207C991000768CA1 /* ProgressView.m */; };
+		18535936207C991000768CA1 /* ProgressView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 18535934207C991000768CA1 /* ProgressView.xib */; };
 		18FA31D82073390100B7161A /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FA31D72073390100B7161A /* AppDelegate.m */; };
 		18FA31DB2073390100B7161A /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 18FA31DA2073390100B7161A /* main.m */; };
 		18FA31DD2073390100B7161A /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 18FA31DC2073390100B7161A /* Assets.xcassets */; };
@@ -43,6 +46,11 @@
 		1804375320738EB200FA0435 /* NSBKeyframeAnimation.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = NSBKeyframeAnimation.m; sourceTree = "<group>"; };
 		1804375420738EB200FA0435 /* NSBKeyframeAnimationFunctions.c */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.c; path = NSBKeyframeAnimationFunctions.c; sourceTree = "<group>"; };
 		1804375520738EB200FA0435 /* NSBKeyframeAnimationFunctions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = NSBKeyframeAnimationFunctions.h; sourceTree = "<group>"; };
+		1853592F207C98F600768CA1 /* NSView+Extension.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "NSView+Extension.h"; sourceTree = "<group>"; };
+		18535930207C98F600768CA1 /* NSView+Extension.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "NSView+Extension.m"; sourceTree = "<group>"; };
+		18535932207C991000768CA1 /* ProgressView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = ProgressView.h; sourceTree = "<group>"; };
+		18535933207C991000768CA1 /* ProgressView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = ProgressView.m; sourceTree = "<group>"; };
+		18535934207C991000768CA1 /* ProgressView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; path = ProgressView.xib; sourceTree = "<group>"; };
 		18FA31D32073390100B7161A /* 1111111.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = 1111111.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		18FA31D62073390100B7161A /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		18FA31D72073390100B7161A /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -103,6 +111,11 @@
 				180436822073500300FA0435 /* MainViewController.m */,
 				180436862073531A00FA0435 /* MyTableCell.h */,
 				180436872073531A00FA0435 /* MyTableCell.m */,
+				1853592F207C98F600768CA1 /* NSView+Extension.h */,
+				18535930207C98F600768CA1 /* NSView+Extension.m */,
+				18535932207C991000768CA1 /* ProgressView.h */,
+				18535933207C991000768CA1 /* ProgressView.m */,
+				18535934207C991000768CA1 /* ProgressView.xib */,
 				180436832073500300FA0435 /* MainViewController.xib */,
 				1804374F20738EA700FA0435 /* ITProgressIndicator.h */,
 				1804375020738EA700FA0435 /* ITProgressIndicator.m */,
@@ -186,6 +199,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				18FA31DD2073390100B7161A /* Assets.xcassets in Resources */,
+				18535936207C991000768CA1 /* ProgressView.xib in Resources */,
 				180436852073500300FA0435 /* MainViewController.xib in Resources */,
 				18FA31E02073390100B7161A /* MainMenu.xib in Resources */,
 			);
@@ -199,6 +213,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				1804373020738E5500FA0435 /* ITPullToRefreshEdgeView.m in Sources */,
+				18535931207C98F600768CA1 /* NSView+Extension.m in Sources */,
 				18FA31DB2073390100B7161A /* main.m in Sources */,
 				180436842073500300FA0435 /* MainViewController.m in Sources */,
 				1804375720738EB200FA0435 /* NSBKeyframeAnimationFunctions.c in Sources */,
@@ -209,6 +224,7 @@
 				1804375120738EA700FA0435 /* ITProgressIndicator.m in Sources */,
 				18FA31D82073390100B7161A /* AppDelegate.m in Sources */,
 				1804372F20738E5500FA0435 /* ITPullToRefreshClipView.m in Sources */,
+				18535935207C991000768CA1 /* ProgressView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
